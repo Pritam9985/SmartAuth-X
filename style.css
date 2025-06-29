@@ -1,9 +1,17 @@
-/* Base Styles */
+/* ===== Base Styles ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Space Grotesk', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 body.light-mode {
@@ -16,23 +24,24 @@ body.dark-mode {
   color: #fff;
 }
 
+/* ===== Container & Form Box ===== */
 .container {
-  max-width: 420px;
-  margin: 50px auto;
-  padding: 2rem;
+  width: 100%;
+  max-width: 450px; /* Optimal width for both mobile and desktop */
+  margin: 0 auto;
 }
 
 .form-box {
-  max-width: 420px; /* Increase slightly if needed */
-  padding: 30px 25px;
+  width: 100%;
+  padding: 2rem;
   border-radius: 20px;
   background: rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 20px rgba(0,255,255,0.4), 0 0 40px rgba(0,0,255,0.3);
 }
 
-
+/* ===== Typing Text ===== */
 .typing-text {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2vw, 1.2rem); /* Responsive font size */
   font-weight: bold;
   color: #00c6ff;
   text-align: center;
@@ -40,36 +49,32 @@ body.dark-mode {
   height: 1.4rem;
 }
 
-/* Tab Switch */
+/* ===== Tab Switch ===== */
 .tab-switch {
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
-  gap: 1rem;
+  margin-bottom: 1.5rem;
+  gap: 0.5rem;
 }
 
 .tab-btn {
   flex: 1;
-  padding: 10px;
+  padding: 0.8rem;
   font-weight: bold;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   background: #ccc;
   color: #333;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  font-size: clamp(0.9rem, 2vw, 1rem); /* Responsive font size */
 }
 
-.tab-btn.active {
-  background: #0074d9;
-  color: white;
-}
-
-/* Form Styling */
+/* ===== Form Elements ===== */
 .form {
   display: none;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .form.active {
@@ -78,19 +83,19 @@ body.dark-mode {
 
 .form-title {
   text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.3rem, 3vw, 1.8rem); /* Responsive title */
 }
 
 .input-group label {
   display: block;
-  font-size: 0.9rem;
-  margin-bottom: 4px;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  margin-bottom: 6px;
 }
 
 .input-group input {
   width: 100%;
-  padding: 10px;
+  padding: 0.8rem;
   border-radius: 8px;
   border: 1px solid #aaa;
   font-size: 1rem;
@@ -106,22 +111,13 @@ body.dark-mode {
   right: 12px;
   transform: translateY(-50%);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
-.forgot {
-  text-align: right;
-  font-size: 0.85rem;
-}
-
-.forgot a {
-  text-decoration: none;
-  color: #0074d9;
-}
-
+/* ===== Buttons & Links ===== */
 .submit-btn {
   width: 100%;
-  padding: 10px;
+  padding: 0.9rem;
   border: none;
   border-radius: 8px;
   background: linear-gradient(to right, #00c6ff, #0072ff);
@@ -129,49 +125,64 @@ body.dark-mode {
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
-  transition: 0.3s;
-}
-
-.submit-btn:hover {
-  background: linear-gradient(to right, #0072ff, #00c6ff);
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
 }
 
 .switch-msg {
   text-align: center;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
 }
 
-.switch-msg span {
-  color: #0072ff;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* Theme Toggle Button */
+/* ===== Theme Toggle ===== */
 .theme-toggle {
-  position: absolute;
-  top: 15px;
-  right: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
 }
 
 #themeSwitch {
   background: none;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   cursor: pointer;
+  padding: 5px;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-  .container {
-    padding: 1rem;
-  }
-
+/* ===== Responsive Breakpoints ===== */
+@media (max-width: 768px) {
   .form-box {
     padding: 1.5rem;
   }
-
-  .typing-text {
-    font-size: 1rem;
+  
+  .tab-btn {
+    padding: 0.7rem;
   }
 }
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+  
+  .form-box {
+    padding: 1.2rem;
+  }
+  
+  .tab-switch {
+    flex-direction: column;
+  }
+  
+  .input-group input {
+    padding: 0.7rem;
+  }
+  
+  .submit-btn {
+    padding: 0.8rem;
+  }
+}
+
+/* ===== Neon Theme Styles ===== */
+/* (Keep your existing neon styles as they are) */
