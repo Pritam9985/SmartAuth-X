@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartAuth X - Login / Signup</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Your existing styles (no change) */
+    body.neon.dark-mode .form-box {
+      box-shadow: 0 0 20px rgba(0,255,255,0.4), 0 0 40px rgba(0,0,255,0.3);
+      background: rgba(0, 0, 0, 0.6);
+      color: #00fff7;
+    }
+    body.neon.dark-mode .tab-btn.active {
+      background: linear-gradient(135deg, #00ffff, #ff00ff);
+      color: white;
+    }
+    body.neon.dark-mode .submit-btn {
+      background: linear-gradient(to right, #00ffe7, #ff1aff);
+      box-shadow: 0 0 10px #00ffe7, 0 0 20px #ff1aff;
+    }
+    body.neon.dark-mode .submit-btn:hover {
+      background: linear-gradient(to right, #ff1aff, #00ffe7);
+    }
+    body.neon.dark-mode .typing-text {
+      color: #ff00f7;
+      text-shadow: 0 0 10px #00ffe7;
+    }
+    body.neon.dark-mode #themeSwitch {
+      color: #00fff7;
+    }
+    body.light-mode .form-box {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+      color: #222;
+    }
+    body.light-mode .tab-btn.active {
+      background: #0074d9;
+      color: #fff;
+    }
+    body.light-mode .submit-btn {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+    }
+    body.light-mode .submit-btn:hover {
+      background: linear-gradient(to right, #0072ff, #00c6ff);
+    }
+    body.light-mode .typing-text {
+      color: #0072ff;
+    }
+    body.light-mode #themeSwitch {
+      color: #0074d9;
+    }
+    .form-title .brand {
+      font-weight: 700;
+      background: linear-gradient(to right, #00f2ff, #ff00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    @media screen and (max-width: 480px) {
+      .form-box {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body class="light-mode neon">
+  <div class="theme-toggle">
+    <button id="themeSwitch">🌙</button>
+  </div>
+  <div class="container">
+    <div class="form-box">
+      <div class="typing-text" id="typingText"></div>
+      <div class="tab-switch">
+        <button id="loginTab" class="tab-btn active">🔐 Sign In</button>
+        <button id="signupTab" class="tab-btn">🆕 Register</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="form active">
+        <h2 class="form-title">Welcome to <span class="brand">SmartAuth X</span></h2>
+        <div class="input-group">
+          <label for="loginIdentifier">📧 Username / Email / Phone</label>
+          <input type="text" id="loginIdentifier" placeholder="Enter your credentials" required />
+        </div>
+        <div class="input-group">
+          <label for="loginPassword">🔒 Password</label>
+          <div class="password-box">
+            <input type="password" id="loginPassword" placeholder="Enter password" required />
+            <span class="toggle-pass" onclick="togglePassword('loginPassword')">👁️</span>
+          </div>
+        </div>
+        <div class="forgot"><a href="#">Forgot your password?</a></div>
+        <button type="submit" class="submit-btn login">🔓 Login</button>
+        <p class="switch-msg">Don't have an account? <span id="toSignup">Create one</span></p>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signupForm" class="form">
+        <h2 class="form-title">Welcome to <span class="brand">SmartAuth X</span></h2>
+        <div class="input-group">
+          <label for="signupIdentifier">📧 Username / Email / Phone</label>
+          <input type="text" id="signupIdentifier" placeholder="Create username, email or phone" required />
+        </div>
+        <div class="input-group">
+          <label for="signupPassword">🔒 Password</label>
+          <div class="password-box">
+            <input type="password" id="signupPassword" placeholder="Create password" required />
+            <span class="toggle-pass" onclick="togglePassword('signupPassword')">👁️</span>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn signup">🚀 Sign Up</button>
+        <p class="switch-msg">Already have an account? <span id="toLogin">Log in</span></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <!-- Moved inline script before loading script.js -->
+  <script>
+    const themeSwitch = document.getElementById('themeSwitch');
+    themeSwitch.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      document.body.classList.toggle('light-mode');
+      themeSwitch.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
+
+    const typingText = document.getElementById("typingText");
+    const phrases = ["🔐 Secure Login", "🧠 Smart Authentication", "🚀 Lightning Fast Access"];
+    let phraseIndex = 0;
+    let letterIndex = 0;
+    let isDeleting = false;
+
+    function typeLoop() {
+      const currentPhrase = phrases[phraseIndex];
+      typingText.textContent = isDeleting
+        ? currentPhrase.substring(0, letterIndex--)
+        : currentPhrase.substring(0, letterIndex++);
+
+      if (!isDeleting && letterIndex === currentPhrase.length) {
+        isDeleting = true;
+        setTimeout(typeLoop, 1000);
+      } else if (isDeleting && letterIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(typeLoop, 300);
+      } else {
+        setTimeout(typeLoop, isDeleting ? 40 : 100);
+      }
+    }
+    typeLoop();
+
+    // Check localStorage for debugging
+    console.log("Loaded localStorage auth_user:", localStorage.getItem("auth_user"));
+  </script>
+
+  <!-- Load script.js last with ./ for GitHub Pages -->
+  <script src="./script.js"></script>
+</body>
+</html>

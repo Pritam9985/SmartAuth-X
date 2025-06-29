@@ -1,0 +1,29 @@
+<!-- signup.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartAuth X – Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="auth-box">
+      <h2 class="form-title">Create an Account 🚀</h2>
+      <form id="signupForm" class="form active">
+        <div class="input-group">
+          <input type="text" id="signupIdentifier" placeholder="Username / Email / Phone" required />
+        </div>
+        <div class="input-group password-group">
+          <input type="password" id="signupPassword" placeholder="Create password" required />
+          <span class="toggle-pass" onclick="togglePassword('signupPassword')">👁</span>
+        </div>
+        <button class="btn primary-btn" type="submit">Sign Up</button>
+        <p class="switch-msg">Already have an account? <a href="index.html">Log in</a></p>
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

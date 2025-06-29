@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SmartAuth X Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      background: linear-gradient(to right, #001F3F, #0074D9);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .quote {
+      font-style: italic;
+      margin-top: 1rem;
+      color: #dddddd;
+    }
+
+    .nav-buttons {
+      margin-top: 2rem;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-buttons button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .nav-buttons button:hover {
+      background: linear-gradient(to right, #0072ff, #00c6ff);
+    }
+
+    .user-name {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #ffdc00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome Back 👋</h1>
+    <div class="user-name" id="userGreeting"></div>
+    <p class="quote">“Security is not a product, but a process.”</p>
+
+    <div class="nav-buttons">
+      <button onclick="alert('Coming Soon!')">🔧 Profile</button>
+      <button onclick="alert('Coming Soon!')">📊 Analytics</button>
+      <button onclick="logout()">🚪 Logout</button>
+    </div>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("auth_user"));
+    document.getElementById("userGreeting").textContent = user?.id ? `Logged in as: ${user.id}` : "You're logged in.";
+
+    function logout() {
+      localStorage.removeItem("auth_user");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
